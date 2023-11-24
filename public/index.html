@@ -1,0 +1,52 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Familia Alexa Skill Test</title>
+</head>
+<body>
+  <h1>Familia Alexa Skill Test</h1>
+  <form id="nameForm">
+    <label for="firstName">Enter a first name:</label>
+    <input type="text" id="firstName" name="firstName" required>
+    <button type="button" onclick="getPersonInfo()">Get Person Info</button>
+  </form>
+  <div id="response"></div>
+
+  <script>
+    function getPersonInfo() {
+      const firstName = document.getElementById('firstName').value;
+
+      fetch('http://localhost:3000/familia', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          request: {
+            type: 'IntentRequest',
+            intent: {
+              name: 'GetPersonInfo',
+              slots: {
+                FirstName: {
+                  name: 'FirstName',
+                  value: firstName,
+                },
+              },
+            },
+          },
+        }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('response').innerText = data.response.outputSpeech.text;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  </script>
+</body>
+</html>

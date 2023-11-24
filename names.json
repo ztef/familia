@@ -1,0 +1,6 @@
+{
+    "names": [
+      { "name": "John", "birthdate": "January 1, 1990", "message": "Hello, John! Have a great day!" },
+      { "name": "Alice", "birthdate": "February 15, 1985", "message": "Hi, Alice! You're awesome!" }
+    ]
+  }
